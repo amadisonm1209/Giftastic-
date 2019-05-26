@@ -1,48 +1,34 @@
-//exercise 10 from last week -- will bring up one image for one click
-//exercise 13 -- there's a for loop that will bring multiple gifs up 
-//exercise 15 -- pausing of the gif 
-//create an array of strings related to the topic of True Crime variable = topics
-//button click that will bring up 10 static gif images 
-//when the gif is clicked, it should animate
-//display the rating of the gif under each gif
 //Global Variables
 //=================================================================================
-const topics = ["Ted Bundy", "My Favorite Murder", "Narcos", "Dahmer", "Serial", "Murder", "Death", "Crime", "Cops", "SVU"];
+const topics = ["Train", "Hawaii", "Iceland", "Germany", "Britain", "New York City", "California", "Airplane", "New Zealand", "Luggage"];
 
 //Global Functions
 //=================================================================================
 
 function renderButtons() {
 
-  // Deletes the movies prior to adding new movies
-  // (this is necessary otherwise you will have repeat buttons)
   $("#button-group").empty();
-  // Loops through the array of movies
-  for (var i = 0; i < topics.length; i++) {
 
-    // Then dynamicaly generates buttons for each movie in the array
-    // This code $("<button>") is all jQuery needs to create the beginning and end tag. (<button></button>)
+  for (var i = 0; i < topics.length; i++) {
     var constantButton = $("<button>");
-    // Adds a class of movie to our button
-    constantButton.addClass("crime-topic");
-    // Added a data-attribute
+    
+    constantButton.addClass("travel-topic");
     constantButton.attr("data-id", topics[i]);
-    // Provided the initial button text
     constantButton.text(topics[i]);
-    // Added the button to the buttons-view div
+
     $("#button-group").append(constantButton);
   }
 }
 
-renderButtons();
 
+function displayTravelGifs() {
 
-$(".crime-topic").on("click", function () {
+  $("#gif-zone").empty();
 
-  var crimeTopic = $(this).attr("data-id");
+  var travelTopic = $(this).attr("data-id");
 
   var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
-    crimeTopic + "&api_key=xbNZfx7pTBuD31eJHsgj8RizhuNMGTGj&limit=10"; //sets the limit
+    travelTopic + "&api_key=xbNZfx7pTBuD31eJHsgj8RizhuNMGTGj&limit=10"; //sets the limit
   console.log(queryURL);
 
   $.ajax({
@@ -53,8 +39,6 @@ $(".crime-topic").on("click", function () {
     .then(function (response) {
       var results = response.data;
 
-      console.log(response);
-
       for (var i = 0; i < results.length; i++) {
         var gifDiv = $("<div>");
 
@@ -62,15 +46,15 @@ $(".crime-topic").on("click", function () {
 
         var p = $("<p>").text("Rating: " + rating);
 
-        var crimeImage = $("<img>");
-        crimeImage.attr("src", results[i].images.fixed_height_still.url);
-        crimeImage.attr("data-still", results[i].images.fixed_height_still.url);
-        crimeImage.attr("data-animate", results[i].images.fixed_height.url);
-        crimeImage.attr("data-state", "still");
-        crimeImage.addClass("gif");
-
+        var travelImage = $("<img>");
+        travelImage.attr("src", results[i].images.fixed_height_still.url);
+        travelImage.attr("data-still", results[i].images.fixed_height_still.url);
+        travelImage.attr("data-animate", results[i].images.fixed_height.url);
+        travelImage.attr("data-state", "still");
+        travelImage.addClass("gif img-fluid");
+  
         gifDiv.prepend(p);
-        gifDiv.prepend(crimeImage);
+        gifDiv.prepend(travelImage);
 
         $("#gif-zone").prepend(gifDiv);
 
@@ -89,6 +73,22 @@ $(".crime-topic").on("click", function () {
         }
       });
     });
+}
 
+
+$("#add-topic").on("click", function(event) {
+  event.preventDefault();
+
+  var userTopic = $("#user-topic").val().trim();
+
+  topics.push(userTopic);
+
+  renderButtons();
+
+  $("#user-topic").val("");
 });
 
+// Adding click event listeners to all elements with a class of "movie"
+$(document).on("click", ".travel-topic", displayTravelGifs);
+
+renderButtons();

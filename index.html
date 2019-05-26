@@ -6,29 +6,29 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Giftastic</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Sans&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
         crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" media="screen" href="assets/css/styles.css" />
 </head>
 
 <body>
-    <div id="button-group" class="container-fluid col-lg-12">
+    <div id="button-group" class="container-fluid col-lg-12 col-md-8 col-sm-6">
     </div>
-    <div class="container">
+    <div class="container main">
         <div class="row">
-            <div class="card col-lg-6">
+            <div class="card col-lg-6 col-md-6 col-sm-12 order-sm-last order-lg-first order-md-first">
                 <div id="gif-zone" class="card-body">
                 </div>
             </div>
-
-            <form class="col-lg-4 offset-1">
+            <form class="col-lg-4 offset-1 col-md-3 col-sm-12 order-sm-1">
                 <div class="form-group">
-                    <label>Not for the weak-hearted</label>
-                    <input type="text" class="form-control" id="user-choice">
+                    <label class="button-label">Where Shall We Go Next?</label>
+                    <input type="text" class="form-control" id="user-topic">
                 </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary" id="add-topic">Submit</button>
             </form>
-
+        
         </div>
     </div>
 
